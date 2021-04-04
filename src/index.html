@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style/style.css">
+  <title>Эквалайзер</title>
+</head>
+
+<body>
+  <audio controls loop class="audio" id="audio">
+    <source src="assets/file.mp3">
+    <source src="assets/file.ogg">
+  </audio>
+  <div class="eq">
+    <div class="eq-wrap"></div>
+    <div class="eq-hz">
+      <p>60 Hz</p>
+      <p>170 Hz</p>
+      <p>310 Hz</p>
+      <p>600 Hz</p>
+      <p>1000 Hz</p>
+      <p>3000 Hz</p>
+      <p>6000 Hz</p>
+      <p>12000 Hz</p>
+      <p>14000 Hz</p>
+      <p>16000 Hz</p>
+    </div>
+  </div>
+  <input type="file" id="file" class="field__file">
+  <div class="field__file-button">Выбрать файл</div>
+  <script src="js/util/pubsub.js"></script>
+  <script src="js/equalizer.js"></script>
+  <script>
+    new Equalizer({
+      audio: '.audio',
+      container: '.eq-wrap'
+    }).on('change', function (data) {
+      console.log('input no.' + data.index + ' changed. new value is ' + data.value);
+    }).on('error', function (data) {
+      console.log(data.message);
+    });
+    document.getElementById('file').addEventListener('change', function (e) {
+      var url = URL.createObjectURL(e.target.files[0]);
+      document.getElementById('audio').src = url;
+    }, false);
+  </script>
+</body>
+
+</html>
