@@ -18,35 +18,32 @@
 
     AudioContext = window.AudioContext || window.webkitAudioContext;
 
-  var
-    Equalizer = function (param) {
-      if (!AudioContext) {
-        this.trigger('error', {
-          message: 'AudioContext not supported'
-        }, true);
+  var Equalizer = function (param) {
+    if (!AudioContext) {
+      this.trigger('error', {
+        message: 'AudioContext not supported'
+      }, true);
+      return;
+    }
 
-        return;
-      }
+    /** AudioContext object */
+    this.context = window.__context || new AudioContext();
+    window.__context = this.context;
 
-      /** AudioContext object */
-      this.context = window.__context || new AudioContext();
-      window.__context = this.context;
+    //значения частот в Hz
+    this.frequencies = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
 
-      //значения частот в Hz
-    
-      this.frequencies = [60, 170, 310, 600, 1000, 3000, 6000, 12000, 14000, 16000];
+    this.length = this.frequencies.length;
 
-      this.length = this.frequencies.length;
+    this.connected = false;
 
-      this.connected = false;
+    this.initInputs(param);
 
-      this.initInputs(param);
-
-      this.createFilters();
-      this.initInputsAttrs();
-      this.initEvents();
-      this.connectEqualizer();
-    };
+    this.createFilters();
+    this.initInputsAttrs();
+    this.initEvents();
+    this.connectEqualizer();
+  };
 
   addPubsub(Equalizer);
 
@@ -100,6 +97,30 @@
     filter.Q.value = 1;
     return filter;
   };
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // var distortion = this.context.createWaveShaper();
+
+  // function makeDistortionCurve(amount) {
+  //   var k = typeof amount === 'number' ? amount : 50,
+  //     n_samples = 44100,
+  //     curve = new Float32Array(n_samples),
+  //     deg = Math.PI / 180,
+  //     i = 0,
+  //     x;
+  //   for (; i < n_samples; ++i) {
+  //     x = i * 2 / n_samples - 1;
+  //     curve[i] = (3 + k) * x * 20 * deg / (Math.PI + k * Math.abs(x));
+  //   }
+  //   return curve;
+  // };
+  // distortion.curve = makeDistortionCurve(400);
+  // distortion.oversample = '4x';
+
+  // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
   Equalizer.prototype.createFilters = function () {
     // cозданем фильтры
