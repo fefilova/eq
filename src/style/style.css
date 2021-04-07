@@ -13,7 +13,7 @@ audio::-webkit-media-controls-panel{
     width: 300px;
 }
 .eq-hz{
-    line-height: 0.8;
+    line-height: 0.77;
     margin-left: 10px;
 }
 
@@ -76,5 +76,14 @@ input[type=file]{
     align-items: center;
     justify-content: center;
     border-radius: 3px;
+}
+.eq_selector {
+    position: absolute;
+    top: 20px;
+    left: 400px;
+    width: 150px;
+    height: 30px;
+    border-radius: 3px;
+
 }
   
