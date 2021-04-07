@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="style/style.css">
-  <title>Эквалайзер</title>
+  <title>Audio Filters</title>
 </head>
 
 <body>
@@ -31,14 +31,18 @@
   <input type="file" id="file" class="field__file">
   <div class="field__file-button">Выбрать файл</div>
   <select class="eq_selector">
-    <option selected value="Баланс">
-      Баланс
+    <option selected value="Normal">
+      Normal
     </option>
-    <option value="Акустика">
-      Акустика
-    <option value="Рандом">
+    <option value="Acoustics">
+      Acoustics
+    </option>
+    <option value="FullBass">
+      Full Bass
+    </option>
+    <!-- <option value="Рандом">
       Рандом
-    </option>
+    </option> -->
   </select>
   <script src="js/filter.js"></script>
   <script src="js/util/pubsub.js"></script>
